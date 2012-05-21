@@ -1,5 +1,5 @@
 import subprocess
-from base import Renderer
+from static_pipeline.lib.base import Renderer
 
 class DeleteRenderer(Renderer):
     """ Deletes a directory, e.g. one of the intermediary pipeline directories

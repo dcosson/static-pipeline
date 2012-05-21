@@ -1,5 +1,5 @@
 import os
-from base import Renderer
+from static_pipeline.lib.base import Renderer
 
 class RenameRenderer(Renderer):
     """ Rename files, and filter some

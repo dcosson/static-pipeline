@@ -3,6 +3,9 @@
 *.swp
 *.DS_Store
 
+#distutils build 
+build/*
+
 # settings file
 pipeline_settings.py
 

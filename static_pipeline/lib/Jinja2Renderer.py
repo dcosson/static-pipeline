@@ -1,5 +1,5 @@
-from utils import get_template_name_from_pathname
-from base import Renderer
+from static_pipeline.utils import get_template_name_from_pathname
+from static_pipeline.lib.base import Renderer
 import jinja2
 
 class Jinja2Renderer(Renderer):

@@ -1,5 +1,5 @@
 import os
-from utils import ls_recursive, get_filename_from_pathname
+from static_pipeline.utils import ls_recursive, get_filename_from_pathname
 
 class Renderer(object):
     """ Renders the content into files
