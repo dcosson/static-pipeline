@@ -1,0 +1,10 @@
+#useless file types
+*.pyc
+*.swp
+*.DS_Store
+
+# testing code here:
+tmp/*
+
+# output of testing code
+out/*
