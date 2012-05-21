@@ -3,6 +3,9 @@
 *.swp
 *.DS_Store
 
+# settings file
+pipeline_settings.py
+
 # testing code here:
 tmp/*
 

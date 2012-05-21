@@ -20,7 +20,7 @@ class CommandLineRenderer(Renderer):
     """ Runs an arbitrary command in command line on each file
         matching the pattern
     """
-    def __init__(self, input_path, output_path, command, template_word="less"):
+    def __init__(self, input_path, output_path, command, template_word):
         super(CommandLineRenderer, self).__init__(input_path, output_path,
                 template_word)
         self.command_base = command.split(' ')
@@ -29,4 +29,12 @@ class CommandLineRenderer(Renderer):
     def render_content(self, input_path, output_path):
         command = self.command_base + [input_path, output_path]
         print "  running: %s" % (command,)
-        status = subprocess.call(command)
+        subprocess.call(command)
+
+class LessCssRenderer(CommandLineRenderer):
+    def __init__(self, *args, **kwargs):
+        kwargs['template_word'] = "less"
+        if not kwargs.get('command'):
+            kwargs['command'] = 'lessc'
+        super(LessCssRenderer, self).__init__(*args, **kwargs)
+        print "Less CSS renderer..."
