@@ -16,6 +16,8 @@ if __name__ == "__main__":
 
     settings_file = "pipeline_settings"
     try:
+        # for whatever reason, sometimes current dir doesn't end up on the pythonpath
+        sys.path.append('.')
         pipeline_settings = __import__(settings_file)
         pipeline = pipeline_settings.PIPELINE
     except ImportError:
