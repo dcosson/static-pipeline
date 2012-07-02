@@ -7,7 +7,6 @@ from CommandLineRenderer import (DeleteRenderer,
 
 def get_renderer_from_template_word(word):
     map_ = {'jinja2': Jinja2Renderer,
-            'jinja': Jinja2Renderer,
             'less': LessCssRenderer,
             'less-css': LessCssRenderer,
             'command-line': CommandLineRenderer,

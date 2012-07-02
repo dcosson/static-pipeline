@@ -1,34 +1,42 @@
 #!/usr/bin/env python
 import sys
+from static_pipeline.lib import argparse
 from static_pipeline.lib import get_renderer_from_template_word
 
 if __name__ == "__main__":
-    USAGE_COMMAND = "usage: static-pipeline <command>\navailable commands:\n    render"
-    if len(sys.argv) == 1:
-        print USAGE_COMMAND
-        sys.exit(1)
-    arg1 = sys.argv[1]
-    if arg1.lower().lstrip('-').lstrip('-') == "help":
-        print USAGE_COMMAND
-        sys.exit(0)
-    if arg1.lower() != "render":
-        print "unrecognized command: {0}".format(arg1)
+    """ Use argparse to decide what to do
+    """
+    # set up arg parsing
+    parser = argparse.ArgumentParser(
+            description='render and rearrange files ' \
+                        '(presumably for serving them as part of a website)')
+    subparsers = parser.add_subparsers(title='commands', dest="command")
 
-    settings_file = "pipeline_settings"
-    try:
-        # for whatever reason, sometimes current dir doesn't end up on the pythonpath
-        sys.path.append('.')
-        pipeline_settings = __import__(settings_file)
-        pipeline = pipeline_settings.PIPELINE
-    except ImportError:
-        print "No settings file: {0}.py".format(settings_file)
-        sys.exit(1)
-    except AttributeError:
-        print "No PIPELINE in settings file.  Nothing to do."
-        sys.exit(0)
+    # render command
+    parser_render = subparsers.add_parser('render', help='render files ' \
+            'with static-pipeline (based on contents of the settings file)')
+    parser_render.add_argument('--settings-file', default='pipeline_settings')
 
-    for kwargs in pipeline:
-        template_word = kwargs.pop('type')
-        RendererClass = get_renderer_from_template_word(template_word)
-        renderer = RendererClass(**kwargs)
-        renderer.render_files()
+    # parse (if no command specified, show help)
+    if len(sys.argv) < 2:
+        sys.argv.append('--help')
+    parsed = parser.parse_args()
+
+    if parsed.command == "render":
+        try:
+            # for whatever reason, sometimes current dir doesn't end up on the pythonpath
+            sys.path.append('.')
+            pipeline_settings = __import__(parsed.settings_file)
+            pipeline = pipeline_settings.PIPELINE
+        except ImportError:
+            print "No settings file: {0}.py".format(parsed.settings_file)
+            sys.exit(1)
+        except AttributeError:
+            print "No PIPELINE in settings file.  Nothing to do."
+            sys.exit(0)
+
+        for kwargs in pipeline:
+            template_word = kwargs.pop('type')
+            RendererClass = get_renderer_from_template_word(template_word)
+            renderer = RendererClass(**kwargs)
+            renderer.render_files()
