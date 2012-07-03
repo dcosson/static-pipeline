@@ -5,7 +5,8 @@ class DeleteRenderer(Renderer):
     """ Deletes a directory, e.g. one of the intermediary pipeline directories
     """
 
-    def __init__(self, input_path, output_path=None, template_word=None):
+    def __init__(self, input_path, output_path=None, template_word=None,
+            **kwargs):
         command = 'rm -rf'
         self.command_list = command.split(' ') + [input_path]
         print "Running Shell Command: %s" % (self.command_list,)
@@ -20,7 +21,8 @@ class CommandLineRenderer(Renderer):
     """ Runs an arbitrary command in command line on each file
         matching the pattern
     """
-    def __init__(self, input_path, output_path, command, template_word):
+    def __init__(self, input_path, output_path, command, template_word,
+            **kwargs):
         super(CommandLineRenderer, self).__init__(input_path, output_path,
                 template_word)
         self.command_base = command.split(' ')

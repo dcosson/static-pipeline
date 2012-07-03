@@ -7,7 +7,7 @@ class Jinja2Renderer(Renderer):
     """
 
     def __init__(self, input_path, output_path,
-            global_vars=None, template_word="jinja2"):
+            global_vars=None, template_word="jinja2", **kwargs):
         super(Jinja2Renderer, self).__init__(input_path, output_path,
                 template_word)
         self.global_vars = global_vars

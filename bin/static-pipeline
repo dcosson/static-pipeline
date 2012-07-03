@@ -37,6 +37,8 @@ if __name__ == "__main__":
 
         for kwargs in pipeline:
             template_word = kwargs.pop('type')
+            # give renderers a dict of global variable (from settings file)
+            kwargs['global_vars'] = vars(pipeline_settings)
             RendererClass = get_renderer_from_template_word(template_word)
             renderer = RendererClass(**kwargs)
             renderer.render_files()

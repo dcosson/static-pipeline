@@ -5,7 +5,7 @@ class RenameRenderer(Renderer):
     """ Rename files, and filter some
     """
     def __init__(self, input_path, output_path, template_word=None,
-            filter_list=None, rename_list=None):
+            filter_list=None, rename_list=None, **kwargs):
         super(RenameRenderer, self).__init__(input_path, output_path,
                 template_word)
         self.filter_list = filter_list or []

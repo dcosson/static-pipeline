@@ -4,7 +4,8 @@ from static_pipeline.utils import ls_recursive, get_filename_from_pathname
 class Renderer(object):
     """ Renders the content into files
     """
-    def __init__(self, input_path, output_path, template_word, copy_not_matching=False):
+    def __init__(self, input_path, output_path, template_word,
+            copy_not_matching=False, **kwargs):
         if not os.path.exists(input_path) or not os.path.isdir(input_path):
             raise IOError("the specified input_path %s doesn't exist or isn't a directory" % input_path)
         if not os.path.exists(output_path) or not os.path.isdir(input_path):
