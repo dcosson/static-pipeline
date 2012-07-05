@@ -1,6 +1,6 @@
-from static_pipeline.utils import get_template_name_from_pathname
-from static_pipeline.lib.base import Renderer
+import os
 import jinja2
+from static_pipeline.lib.base import Renderer
 
 class Jinja2Renderer(Renderer):
     """ Render Jinja2 Templates
@@ -16,8 +16,9 @@ class Jinja2Renderer(Renderer):
         print "Rendering Jinja2 Templates..."
 
     def render_content(self, inpath, outpath):
-        filename = get_template_name_from_pathname(inpath)
-        # load and render template
+        """ Load and render the template
+        """
+        filename = os.path.split(inpath)[1]
         t = self.env.get_template(filename)
         content = t.render()
         with open(outpath, 'w') as f:
@@ -25,7 +26,6 @@ class Jinja2Renderer(Renderer):
 
     def _set_jinja_env(self, global_vars, template_path):
         """ no env vars yet, so it's kind of useless other than for inheritance"""
-        env = jinja2.Environment()
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_path))
         env.globals = global_vars
-        env.loader = jinja2.FileSystemLoader(template_path)
         self.env = env
