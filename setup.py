@@ -8,6 +8,7 @@ setup(name='static-pipeline',
       author='Danny Cosson',
       author_email='danny@tourbie.com',
       url='https://dcosson@github.com/dcosson/static-pipeline.git',
+      license='BSD',
       packages=['static_pipeline', 'static_pipeline.lib'],
       scripts=['bin/static-pipeline'],
       install_requires=['Jinja2'],)

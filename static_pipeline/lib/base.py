@@ -1,19 +1,6 @@
 import os
 import logging
-import ipdb; ipdb.set_trace()
-from static_pipeline.lib import get_renderer_from_template_word
 from static_pipeline.utils import ls_recursive, get_filename_from_pathname
-
-def render(pipeline, settings_module):
-    """ the main render function
-    """
-    for kwargs in pipeline:
-        template_word = kwargs.pop('type')
-        # give renderers a dict of global variable (from settings file)
-        kwargs['global_vars'] = vars(settings_module)
-        RendererClass = get_renderer_from_template_word(template_word)
-        renderer = RendererClass(**kwargs)
-        renderer.render_files()
 
 class Renderer(object):
     """ Renders the content into files
